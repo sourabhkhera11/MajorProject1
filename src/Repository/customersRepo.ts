@@ -1,6 +1,8 @@
 import { Repository } from "typeorm";
 import {AppDataSource} from "../data-source";
 import { Customer } from "../entity/customersEntity";
+import { AppError } from "../utils/AppError";
+import { HTTP_STATUS } from "../utils/constant";
 
 export class customersRepository{
     private customerRepo : Repository<Customer>; 
@@ -45,5 +47,17 @@ export class customersRepository{
         }
     }
 
-    
+    async deleteCustomer(inputId:bigint):Promise<void>{
+        const result =await this.customerRepo.delete({id:inputId});
+        if(result.affected === 0){
+            throw new AppError("User not Found",HTTP_STATUS.NOT_FOUND);
+        } 
+    }
+
+    async updateUserById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
+        const result= await this.customerRepo.update({id:inputId},updateData);
+        if(result.affected===0){
+            throw new AppError("User not found",HTTP_STATUS.NOT_FOUND);
+        }
+    }
 }

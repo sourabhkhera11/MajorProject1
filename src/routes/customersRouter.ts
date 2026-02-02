@@ -9,4 +9,8 @@ router.get('/allCustomer', CustomerController.fetchCustomers);
 
 router.get('/:id',CustomerController.fetchCustomer)
 
+router.delete('/:id',CustomerController.deleteCustomer)
+
+router.patch('/:id',CustomerController.updateCustomer);
+
 export default router;
