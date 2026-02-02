@@ -60,4 +60,11 @@ export class customersRepository{
             throw new AppError("User not found",HTTP_STATUS.NOT_FOUND);
         }
     }
+
+    async isDuplicate(inputEmail:string):Promise<boolean>{
+        const customer =await this.customerRepo.findOneBy({
+            email:inputEmail
+        });
+        return (customer)?true:false;
+    }
 }

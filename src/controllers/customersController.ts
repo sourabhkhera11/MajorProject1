@@ -11,9 +11,12 @@ export class CustomerController{
     static async createCustomer(ctx: Context){
         const customerData=ctx.request.body;
         const {name,
-        phone,
-        email 
+            phone,
+            email 
         }=customerData;
+        if(await custRepo.isDuplicate(email)){
+            throw new AppError("Duplicate entry",HTTP_STATUS.CONFLICT);
+        }
         if(!name){
             throw new AppError("Name is required!",HTTP_STATUS.BAD_REQUEST);
         }

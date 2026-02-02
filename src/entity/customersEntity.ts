@@ -12,7 +12,7 @@ export class Customer {
   @Column({type : "text", unique: true })
   email!: string;
 
-  @Column({type : "varchar", length : 15, unique : true})
+  @Column({type : "varchar", length : 15})
   phone !: string;
 
   @CreateDateColumn({ type: "timestamptz" })

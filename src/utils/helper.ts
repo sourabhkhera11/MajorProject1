@@ -1,6 +1,6 @@
+import { Gender } from "./enums";
 const phoneRegex = /^\+[1-9]\d{9,13}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-import { Gender } from "./enums";
 
 export function isPhone(contact : string):boolean{
     return phoneRegex.test(contact) 
