@@ -4,7 +4,7 @@ import { Gender } from "../utils/enums";
 @Entity()
 export class Customer {
   @PrimaryGeneratedColumn({type: "bigint"})
-  id !: string;
+  id !: bigint;
 
   @Column({type : "varchar"})
   name !: string;

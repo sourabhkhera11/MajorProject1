@@ -7,4 +7,6 @@ router.post("/register", CustomerController.createCustomer);
 
 router.get('/allCustomer', CustomerController.fetchCustomers);
 
+router.get('/:id',CustomerController.fetchCustomer)
+
 export default router;

@@ -9,11 +9,11 @@ export class customersRepository{
         this.customerRepo = AppDataSource.getRepository(Customer);
     }
 
-    async insertUser(userData:Customer): Promise<string>{
+    async insertCustomer(userData:Customer): Promise<string>{
         try{
             const user= await this.customerRepo.save({
                 name: userData.name,
-                contactNumber: userData.phone,
+                phone: userData.phone,
                 email: userData.email
             });
             return user.name;
@@ -23,13 +23,25 @@ export class customersRepository{
         }
     }
     
-    async fetchAllUser():Promise<Customer[]> {
+    async fetchAllCustomers():Promise<Customer[]> {
         try{
             const users=await this.customerRepo.find();
             return users;
         }
         catch(er){
             throw new Error("Failed to fetch customer data!");
+        }
+    }
+
+    async fetchCustomer(inputId:bigint):Promise<Customer | null>{
+        try{
+            const customer =await this.customerRepo.findOneBy({
+                id:inputId
+            });
+            return customer;
+        }
+        catch(er){
+            throw new Error("Failed to fetch a particular data!");
         }
     }
 }
