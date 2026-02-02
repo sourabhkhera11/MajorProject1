@@ -44,4 +44,6 @@ export class customersRepository{
             throw new Error("Failed to fetch a particular data!");
         }
     }
+
+    
 }
