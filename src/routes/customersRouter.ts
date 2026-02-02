@@ -1,10 +1,10 @@
 import Router from "koa-router";
-import { UserController } from "../controllers/customersController";
+import { CustomerController } from "../controllers/customersController";
 
-const router = new Router({prefix:"/users"});
+const router = new Router({prefix:"/customer"});
 
-router.post("/register", UserController.createUser);
+router.post("/register", CustomerController.createCustomer);
 
-router.get('/allUsers', UserController.fetchUsers);
+router.get('/allCustomer', CustomerController.fetchCustomers);
 
 export default router;

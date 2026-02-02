@@ -5,43 +5,26 @@ import { HTTP_STATUS } from "../utils/constant";
 
 const custRepo = new customersRepository();
 
-export class UserController{
+export class CustomerController{
 
-    static async createUser(ctx: Context){
+    static async createCustomer(ctx: Context){
         try{
-            const userData=ctx.request.body;
+            const customerData=ctx.request.body;
             const {name,
-            contactNumber,
-            dob,
-            gender,
-            city,
-            interests, 
-            password,
+            phone,
             email 
-            }=userData;
+            }=customerData;
 
             if(!name){
                 throw new Error("Name is required!");
             }
-            if(!city){
-                throw new Error("City is required");
-            }
-            if (!isPhone(contactNumber)) {
+            if (!isPhone(phone)) {
                 throw new Error("Invalid contact number format");
             }
             if (!isEmail(email)) {
                 throw new Error("Invalid email format");
             }
-            if (!isGender(gender)){
-                throw new Error("Invalid gender!");
-            }
-            if(!isDOB(new Date(dob)) ){
-                throw  new Error("Not a valid dob!");
-            }
-            if(!isInterests(interests)){
-                throw new Error("Must have at least one interest!");
-            }
-            const value=await custRepo.insertUser(userData);
+            const value=await custRepo.insertUser(customerData);
             ctx.status=HTTP_STATUS.CREATED;
             ctx.body={
                 message: `Welcome ${value}!`
@@ -55,7 +38,7 @@ export class UserController{
             };
         }
     }
-    static async fetchUsers(ctx: Context){
+    static async fetchCustomers(ctx: Context){
         try{
             const users=await custRepo.fetchAllUser();
             ctx.status=HTTP_STATUS.OK;

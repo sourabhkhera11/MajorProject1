@@ -1,40 +1,35 @@
 import { Repository } from "typeorm";
 import {AppDataSource} from "../data-source";
-import { User } from "../entity/customersEntity";
+import { Customer } from "../entity/customersEntity";
 
 export class customersRepository{
-    private userRepo : Repository<User>; 
+    private customerRepo : Repository<Customer>; 
 
     constructor(){
-        this.userRepo = AppDataSource.getRepository(User);
+        this.customerRepo = AppDataSource.getRepository(Customer);
     }
 
-    async insertUser(userData:User): Promise<string>{
+    async insertUser(userData:Customer): Promise<string>{
         try{
-            const user= await this.userRepo.save({
+            const user= await this.customerRepo.save({
                 name: userData.name,
-                contactNumber: userData.contactNumber,
-                dob: userData.dob,
-                gender: userData.gender,
-                city: userData.city,
-                interests: userData.interests,
-                password: userData.password,
+                contactNumber: userData.phone,
                 email: userData.email
             });
             return user.name;
         }
         catch(er){
-            throw new Error("Failed to insert user");
+            throw new Error("Failed to insert customer");
         }
     }
     
-    async fetchAllUser():Promise<User[]> {
+    async fetchAllUser():Promise<Customer[]> {
         try{
-            const users=await this.userRepo.find();
+            const users=await this.customerRepo.find();
             return users;
         }
         catch(er){
-            throw new Error("Failed to fetch data!");
+            throw new Error("Failed to fetch customer data!");
         }
     }
 }
