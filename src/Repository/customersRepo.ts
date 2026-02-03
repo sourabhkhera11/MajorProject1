@@ -1,8 +1,9 @@
-import { Repository } from "typeorm";
+import { Any, Repository } from "typeorm";
 import {AppDataSource} from "../data-source";
 import { Customer } from "../entity/customersEntity";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
+type CustomerSelectableField = keyof Customer; 
 
 export class customersRepository{
     private customerRepo : Repository<Customer>; 
@@ -20,17 +21,25 @@ export class customersRepository{
         return user.name;
     }
     
-    async fetchAllCustomers( take : number = 10 , skip : number = 0):Promise<Customer[]> {
+    async fetchAllCustomers( take : number = 10 , skip : number = 0 , fields? : string[]):Promise<Customer[]> {
+        const possibleFields= ['id','name','email','phone','createdAt'];
+        const safeFields : any  = (fields) ? fields.filter(field => possibleFields.includes(field)) : undefined;
         const users=await this.customerRepo.find({
             take:take,
-            skip:skip
+            skip:skip,
+            select:safeFields
         });
         return users;
     }
 
-    async fetchCustomer(inputId:bigint):Promise<Customer | null>{
-        const customer =await this.customerRepo.findOneBy({
-            id:inputId
+    async fetchCustomer(inputId:bigint, fields? : string[]):Promise<Customer | null>{
+        const possibleFields= ['id','name','email','phone','createdAt'];
+        const safeFields : any  = (fields) ? fields.filter(field => possibleFields.includes(field)) : undefined;
+        const customer =await this.customerRepo.findOne({
+            where:{
+                id:inputId
+            },
+            select:safeFields
         });
         return customer;
         

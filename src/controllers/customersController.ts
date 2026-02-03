@@ -44,9 +44,10 @@ export class CustomerController extends BaseController{
     }
     static async fetchCustomers(ctx: Context){
         return CustomerController.execute(ctx,async()=>{
+            const fields = ctx.query.fields ? (ctx.query.fields as string).split(',') : []  ;
             const take = ctx.query.take ? Number(ctx.query.take) : undefined ;
             const skip = ctx.query.skip ? Number(ctx.query.skip) : undefined;
-            const customers=await custRepo.fetchAllCustomers(take,skip);
+            const customers=await custRepo.fetchAllCustomers(take,skip,fields);
             if(!customers){
                 throw new AppError("No customer found",HTTP_STATUS.NOT_FOUND);
             }
@@ -58,7 +59,8 @@ export class CustomerController extends BaseController{
     }
     static async fetchCustomer(ctx:Context){
         return BaseController.execute(ctx,async()=>{
-            const customer=await custRepo.fetchCustomer(ctx.params.id);
+            const fields = ctx.query.fields ? (ctx.query.fields as string).split(',') : []  ;
+            const customer=await custRepo.fetchCustomer(ctx.params.id, fields);
             if(!customer){
                 throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
             }
