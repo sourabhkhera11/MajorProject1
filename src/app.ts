@@ -7,7 +7,7 @@ const app = new Koa();
 
 app.use(morgan("dev"));
 app.use(bodyParser());
-app.use(errorHandler);
+// app.use(errorHandler);
 
 app.use(customerRoutes.routes());
 app.use(customerRoutes.allowedMethods());

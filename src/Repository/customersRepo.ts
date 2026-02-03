@@ -12,54 +12,40 @@ export class customersRepository{
     }
 
     async insertCustomer(userData:Customer): Promise<string>{
-        try{
-            const user= await this.customerRepo.save({
-                name: userData.name,
-                phone: userData.phone,
-                email: userData.email
-            });
-            return user.name;
-        }
-        catch(er){
-            throw new Error("Failed to insert customer");
-        }
+        const user= await this.customerRepo.save({
+            name: userData.name,
+            phone: userData.phone,
+            email: userData.email
+        });
+        return user.name;
     }
     
     async fetchAllCustomers():Promise<Customer[]> {
-        try{
-            const users=await this.customerRepo.find();
-            return users;
-        }
-        catch(er){
-            throw new Error("Failed to fetch customer data!");
-        }
+        const users=await this.customerRepo.find();
+        return users;
     }
 
     async fetchCustomer(inputId:bigint):Promise<Customer | null>{
-        try{
-            const customer =await this.customerRepo.findOneBy({
-                id:inputId
-            });
-            return customer;
-        }
-        catch(er){
-            throw new Error("Failed to fetch a particular customer data!");
-        }
+        const customer =await this.customerRepo.findOneBy({
+            id:inputId
+        });
+        return customer;
+        
     }
 
     async deleteCustomer(inputId:bigint):Promise<void>{
-            const result =await this.customerRepo.delete({id:inputId});
-            if(result.affected === 0){
-                throw new AppError("Customer not Found",HTTP_STATUS.NOT_FOUND);
-            } 
+        const result =await this.customerRepo.delete({id:inputId});
+        if(result.affected === 0){
+            throw new AppError("Customer not Found",HTTP_STATUS.NOT_FOUND);
+        } 
     }
 
     async updateUserById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
-            const {id,...safeFields}=updateData;
-            const result= await this.customerRepo.update({id:inputId},safeFields);
-            if(result.affected===0){
-                throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
-            }
+        const {id,...safeFields}=updateData;
+        const result= await this.customerRepo.update({id:inputId},safeFields);
+        if(result.affected===0){
+            throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
+        }
     }
 
     async isDuplicate(inputEmail:string):Promise<boolean>{
