@@ -52,6 +52,6 @@ export class customersRepository{
         const customer =await this.customerRepo.findOneBy({
             email:inputEmail
         });
-        return (customer)?true:false;
+        return (customer) ? true : false;
     }
 }

@@ -1,6 +1,6 @@
-import { Context } from "node:vm";
+// import { Context } from "node:vm";
 import { AppError } from "../utils/AppError";
-
+import { Context } from "koa";
 export class BaseController {
 
   protected static async execute(

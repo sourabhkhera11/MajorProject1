@@ -1,42 +1,50 @@
-import { Context } from "node:vm";
+// import { Context } from "node:vm";
 import { customersRepository } from "../Repository/customersRepo";
 import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/helper";
 import { HTTP_STATUS } from "../utils/constant";
 import { AppError } from "../utils/AppError";
 import { BaseController } from "./baseController";
+import { Context } from "koa";
 
 const custRepo = new customersRepository();
 
 export class CustomerController extends BaseController{ 
 
     static async createCustomer(ctx: Context){
-        return BaseController.execute(ctx, async()=>{
-            const customerData=ctx.request.body;
+        return CustomerController.execute(ctx, async()=>{
+            const customerData = (ctx.request as any).body;
+            if(!customerData || Object.keys(customerData).length<1){
+                throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
+            }
             const {name,
                 phone,
                 email 
             }=customerData;
-            if(!name){
+
+            if (!name) {
                 throw new AppError("Name is required!",HTTP_STATUS.BAD_REQUEST);
             }
+
             if (!isPhone(phone)) {
                 throw new AppError("Invalid contact number format",HTTP_STATUS.BAD_REQUEST);
             }
-            if(await custRepo.isDuplicate(email)){
+
+            if (await custRepo.isDuplicate(email)) {
                 throw new AppError("Duplicate entry",HTTP_STATUS.CONFLICT);
             }
+
             if (!isEmail(email)) {
                 throw new AppError("Invalid email format",HTTP_STATUS.BAD_REQUEST);
             }
-            const value=await custRepo.insertCustomer(customerData);
+            const value = await custRepo.insertCustomer(customerData);
             return {
                 message:"Customer created successfully",
                 result:value
             };
-        },HTTP_STATUS.CREATED);
+        }, HTTP_STATUS.CREATED);
     }
     static async fetchCustomers(ctx: Context){
-        return BaseController.execute(ctx,async()=>{
+        return CustomerController.execute(ctx,async()=>{
             const customers=await custRepo.fetchAllCustomers();
             if(!customers){
                 throw new AppError("No customer found",HTTP_STATUS.NOT_FOUND);
@@ -71,7 +79,11 @@ export class CustomerController extends BaseController{
 
     static async updateCustomer(ctx:Context){
         return BaseController.execute(ctx,async ()=>{
-            await custRepo.updateUserById(ctx.params.id,ctx.request.body);
+            const customerData=(ctx.request as any).body;
+            if(!customerData || Object.keys(customerData).length<1){
+                throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
+            }
+            await custRepo.updateUserById(ctx.params.id,customerData);
             return{
                 message:"Customer updated successfully"
             }
