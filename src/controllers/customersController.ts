@@ -68,12 +68,11 @@ export class CustomerController{
     }
 
     static async updateCustomer(ctx:Context){
-        await custRepo.updateUserById(ctx.params.id,ctx.request.body);
-        ctx.status=HTTP_STATUS.OK;
-        ctx.body={
-            success:true,
-            message:"Customer updated successfully"
-        }
+            await custRepo.updateUserById(ctx.params.id,ctx.request.body);
+            ctx.status=HTTP_STATUS.OK;
+            ctx.body={
+                success:true,
+                message:"Customer updated successfully"
+            }
     }
-
 }

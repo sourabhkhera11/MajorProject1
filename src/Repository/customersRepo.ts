@@ -48,28 +48,18 @@ export class customersRepository{
     }
 
     async deleteCustomer(inputId:bigint):Promise<void>{
-        try{
             const result =await this.customerRepo.delete({id:inputId});
             if(result.affected === 0){
                 throw new AppError("Customer not Found",HTTP_STATUS.NOT_FOUND);
             } 
-        }
-        catch(er:any){
-            throw new AppError(er.message,HTTP_STATUS.BAD_REQUEST);
-        }
     }
 
     async updateUserById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
-        try{
             const {id,...safeFields}=updateData;
             const result= await this.customerRepo.update({id:inputId},safeFields);
             if(result.affected===0){
                 throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
             }
-        }
-        catch(er:any){
-            throw new AppError(`${er.message}`,HTTP_STATUS.BAD_REQUEST);
-        }
     }
 
     async isDuplicate(inputEmail:string):Promise<boolean>{
