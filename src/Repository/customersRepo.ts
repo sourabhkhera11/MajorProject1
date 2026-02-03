@@ -43,21 +43,32 @@ export class customersRepository{
             return customer;
         }
         catch(er){
-            throw new Error("Failed to fetch a particular data!");
+            throw new Error("Failed to fetch a particular customer data!");
         }
     }
 
     async deleteCustomer(inputId:bigint):Promise<void>{
-        const result =await this.customerRepo.delete({id:inputId});
-        if(result.affected === 0){
-            throw new AppError("User not Found",HTTP_STATUS.NOT_FOUND);
-        } 
+        try{
+            const result =await this.customerRepo.delete({id:inputId});
+            if(result.affected === 0){
+                throw new AppError("Customer not Found",HTTP_STATUS.NOT_FOUND);
+            } 
+        }
+        catch(er:any){
+            throw new AppError(er.message,HTTP_STATUS.BAD_REQUEST);
+        }
     }
 
     async updateUserById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
-        const result= await this.customerRepo.update({id:inputId},updateData);
-        if(result.affected===0){
-            throw new AppError("User not found",HTTP_STATUS.NOT_FOUND);
+        try{
+            const {id,...safeFields}=updateData;
+            const result= await this.customerRepo.update({id:inputId},safeFields);
+            if(result.affected===0){
+                throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
+            }
+        }
+        catch(er:any){
+            throw new AppError(`${er.message}`,HTTP_STATUS.BAD_REQUEST);
         }
     }
 

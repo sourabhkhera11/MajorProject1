@@ -1,18 +1,18 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity()
-export class Customer {
+export class Products {
   @PrimaryGeneratedColumn({type: "bigint"})
   id !: bigint;
 
-  @Column({type : "varchar"})
-  name !: string;
+  @Column({type : "text"})
+  title !: string;
   
-  @Column({type : "text", unique: true })
-  email!: string;
+  @Column({type : "text" })
+  description!: string;
 
-  @Column({type : "varchar", length : 15})
-  phone !: string;
+  @Column("simple-array")
+  tags !: string[];
 
   @CreateDateColumn({ type: "timestamptz" })
   createdAt !: Date;

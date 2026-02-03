@@ -14,14 +14,14 @@ export class CustomerController{
             phone,
             email 
         }=customerData;
-        if(await custRepo.isDuplicate(email)){
-            throw new AppError("Duplicate entry",HTTP_STATUS.CONFLICT);
-        }
         if(!name){
             throw new AppError("Name is required!",HTTP_STATUS.BAD_REQUEST);
         }
         if (!isPhone(phone)) {
             throw new AppError("Invalid contact number format",HTTP_STATUS.BAD_REQUEST);
+        }
+        if(await custRepo.isDuplicate(email)){
+            throw new AppError("Duplicate entry",HTTP_STATUS.CONFLICT);
         }
         if (!isEmail(email)) {
             throw new AppError("Invalid email format",HTTP_STATUS.BAD_REQUEST);
@@ -34,16 +34,22 @@ export class CustomerController{
         }
     }
     static async fetchCustomers(ctx: Context){
-        const users=await custRepo.fetchAllCustomers();
+        const customers=await custRepo.fetchAllCustomers();
+        if(!customers){
+            throw new AppError("No customer found",HTTP_STATUS.NOT_FOUND);
+        }
         ctx.status=HTTP_STATUS.OK;
         ctx.body={
             success:true,
             message: "Data fetched successfully",
-            data: users
+            data: customers
         }
     }
     static async fetchCustomer(ctx:Context){
         const customer=await custRepo.fetchCustomer(ctx.params.id);
+        if(!customer){
+            throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
+        }
         ctx.status=HTTP_STATUS.OK;
         ctx.body={
             success:true,
