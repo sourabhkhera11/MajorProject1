@@ -20,8 +20,11 @@ export class customersRepository{
         return user.name;
     }
     
-    async fetchAllCustomers():Promise<Customer[]> {
-        const users=await this.customerRepo.find();
+    async fetchAllCustomers( take : number = 10 , skip : number = 0):Promise<Customer[]> {
+        const users=await this.customerRepo.find({
+            take:take,
+            skip:skip
+        });
         return users;
     }
 

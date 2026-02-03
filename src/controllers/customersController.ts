@@ -1,4 +1,3 @@
-// import { Context } from "node:vm";
 import { customersRepository } from "../Repository/customersRepo";
 import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/helper";
 import { HTTP_STATUS } from "../utils/constant";
@@ -45,7 +44,9 @@ export class CustomerController extends BaseController{
     }
     static async fetchCustomers(ctx: Context){
         return CustomerController.execute(ctx,async()=>{
-            const customers=await custRepo.fetchAllCustomers();
+            const take = ctx.query.take ? Number(ctx.query.take) : undefined ;
+            const skip = ctx.query.skip ? Number(ctx.query.skip) : undefined;
+            const customers=await custRepo.fetchAllCustomers(take,skip);
             if(!customers){
                 throw new AppError("No customer found",HTTP_STATUS.NOT_FOUND);
             }
