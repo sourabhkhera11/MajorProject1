@@ -1,5 +1,5 @@
-import { Any, Repository } from "typeorm";
-import {AppDataSource} from "../data-source";
+import { Repository } from "typeorm";
+import { AppDataSource } from "../data-source";
 import { Customer } from "../entity/customersEntity";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
