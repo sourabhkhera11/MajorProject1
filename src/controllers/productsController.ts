@@ -81,4 +81,17 @@ export class ProductController extends BaseController{
             }
         },HTTP_STATUS.OK) 
     }
+
+    static async updateProduct(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            const productData=(ctx.request as any).body;
+            if(!productData || Object.keys(productData).length<1){
+                throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
+            }
+            await productRepo.updateProduct(ctx.params.id,productData)
+            return{
+                message : "Product updated successfully"
+            }
+        },HTTP_STATUS.OK)
+    }
 }
