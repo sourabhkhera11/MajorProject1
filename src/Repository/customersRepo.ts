@@ -3,7 +3,7 @@ import { AppDataSource } from "../data-source";
 import { Customer } from "../entity/customersEntity";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
-type CustomerSelectableField = keyof Customer; 
+import { getSafeSelectFields } from "../utils/selectFields";
 
 export class customersRepository{
     private customerRepo : Repository<Customer>; 
@@ -22,8 +22,7 @@ export class customersRepository{
     }
     
     async fetchAllCustomers( take : number = 10 , skip : number = 0 , fields? : string[]):Promise<Customer[]> {
-        const possibleFields= ['id','name','email','phone','createdAt'];
-        const safeFields : any  = (fields) ? fields.filter(field => possibleFields.includes(field)) : undefined;
+        const safeFields = getSafeSelectFields(AppDataSource,Customer,fields);
         const users=await this.customerRepo.find({
             take:take,
             skip:skip,
@@ -33,8 +32,7 @@ export class customersRepository{
     }
 
     async fetchCustomer(inputId:bigint, fields? : string[]):Promise<Customer | null>{
-        const possibleFields= ['id','name','email','phone','createdAt'];
-        const safeFields : any  = (fields) ? fields.filter(field => possibleFields.includes(field)) : undefined;
+        const safeFields = getSafeSelectFields(AppDataSource,Customer,fields);
         const customer =await this.customerRepo.findOne({
             where:{
                 id:inputId
