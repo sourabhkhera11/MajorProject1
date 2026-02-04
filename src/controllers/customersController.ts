@@ -25,15 +25,15 @@ export class CustomerController extends BaseController{
             }
 
             if (!isPhone(phone)) {
-                throw new AppError("Invalid contact number format",HTTP_STATUS.BAD_REQUEST);
+                throw new AppError("Invalid contact number!",HTTP_STATUS.BAD_REQUEST);
             }
 
             if (await custRepo.isDuplicate(email)) {
-                throw new AppError("Duplicate entry",HTTP_STATUS.CONFLICT);
+                throw new AppError("Duplicate entry!",HTTP_STATUS.CONFLICT);
             }
 
             if (!isEmail(email)) {
-                throw new AppError("Invalid email format",HTTP_STATUS.BAD_REQUEST);
+                throw new AppError("Invalid email!",HTTP_STATUS.BAD_REQUEST);
             }
             const value = await custRepo.insertCustomer(customerData);
             return {

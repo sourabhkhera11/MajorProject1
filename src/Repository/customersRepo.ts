@@ -12,13 +12,13 @@ export class customersRepository{
         this.customerRepo = AppDataSource.getRepository(Customer);
     }
 
-    async insertCustomer(userData:Customer): Promise<string>{
-        const user= await this.customerRepo.save({
+    async insertCustomer(userData:Customer): Promise<Customer>{
+        const customer= await this.customerRepo.save({
             name: userData.name,
             phone: userData.phone,
             email: userData.email
         });
-        return user.name;
+        return customer;
     }
     
     async fetchAllCustomers( take : number = 10 , skip : number = 0 , fields? : string[]):Promise<Customer[]> {

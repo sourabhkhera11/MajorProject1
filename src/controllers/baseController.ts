@@ -13,7 +13,7 @@ export class BaseController {
       ctx.status = successStatus;
       ctx.body = {
         success: true,
-        data
+        ...data
       };
 
     } catch (error: any) {
