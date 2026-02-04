@@ -51,8 +51,7 @@ export class customersRepository{
     }
 
     async updateCustomerById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
-        const {id,...safeFields}=updateData;
-        const result= await this.customerRepo.update({id:inputId},safeFields);
+        const result= await this.customerRepo.update({id:inputId},updateData);
         if(result.affected===0){
             throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
         }

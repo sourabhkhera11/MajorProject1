@@ -55,8 +55,7 @@ export class productRepository{
     }
 
     async updateProduct(inputId : bigint,updateData : Partial<Product> ) : Promise<void>{
-        const {id,...safeFields} = updateData;
-        const result = await this.productRepo.update({id : inputId},safeFields);
+        const result = await this.productRepo.update({id : inputId},updateData);
         if(result.affected === 0){
             throw new AppError("Product Not Found",HTTP_STATUS.NOT_FOUND);
         }

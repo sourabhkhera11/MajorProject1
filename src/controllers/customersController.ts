@@ -86,7 +86,17 @@ export class CustomerController extends BaseController{
             if(!customerData || Object.keys(customerData).length<1){
                 throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
             }
-            await custRepo.updateCustomerById(ctx.params.id,customerData);
+            const{
+                name,
+                email,
+                phone
+            } = customerData;
+            const safeFields = {
+                name:name,
+                email:email,
+                phone:phone
+            }
+            await custRepo.updateCustomerById(ctx.params.id,safeFields);
             return{ 
                 message:"Customer updated successfully"
             }

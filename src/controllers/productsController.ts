@@ -88,7 +88,17 @@ export class ProductController extends BaseController{
             if(!productData || Object.keys(productData).length<1){
                 throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
             }
-            await productRepo.updateProduct(ctx.params.id,productData)
+            const{
+                title,
+                description,
+                tags
+            }=productData;
+            const safeFields={
+                title:title,
+                description:description,
+                tags:tags
+            }
+            await productRepo.updateProduct(ctx.params.id,safeFields)
             return{
                 message : "Product updated successfully"
             }
