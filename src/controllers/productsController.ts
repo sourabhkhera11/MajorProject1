@@ -3,6 +3,7 @@ import { BaseController } from "./baseController";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
+import { Product } from "../entity/productEntity";
 
 const productRepo = new productRepository();
 
@@ -50,6 +51,8 @@ export class ProductController extends BaseController{
             const tags = (ctx.query.tags) ? (ctx.query.tags as string).split(',') : [] as string[]; 
             const fields = ctx.query.fields ? (ctx.query.fields as string).split(",") : [] as string[];
             const products = await productRepo.fetchProducts(take,skip,fields,tags);
+            const product: Product = products[1];
+            console.log(product.variants)
             if(!products){
                 throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
             }

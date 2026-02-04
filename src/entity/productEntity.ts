@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
+import { Variant } from "./variantEntity";
 
-@Entity()
+@Entity("product")
 export class Product {
   @PrimaryGeneratedColumn({type: "bigint"})
   id !: bigint;
@@ -16,4 +17,7 @@ export class Product {
 
   @CreateDateColumn({ type: "timestamptz" })
   createdAt !: Date;
+
+  @OneToMany(() => Variant, variant => variant.product)
+  variants!: Variant[];
 }
