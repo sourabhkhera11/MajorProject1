@@ -12,23 +12,23 @@ export class customersRepository{
         this.customerRepo = AppDataSource.getRepository(Customer);
     }
 
-    async insertCustomer(userData:Customer): Promise<Customer>{
+    async insertCustomer(customerData:Customer): Promise<Customer>{
         const customer= await this.customerRepo.save({
-            name: userData.name,
-            phone: userData.phone,
-            email: userData.email
+            name: customerData.name,
+            phone: customerData.phone,
+            email: customerData.email
         });
-        return customer;
+        return customer;    
     }
     
     async fetchAllCustomers( take : number = 10 , skip : number = 0 , fields? : string[]):Promise<Customer[]> {
         const safeFields = getSafeSelectFields(AppDataSource,Customer,fields);
-        const users=await this.customerRepo.find({
+        const customers=await this.customerRepo.find({
             take:take,
             skip:skip,
             select:safeFields
         });
-        return users;
+        return customers;
     }
 
     async fetchCustomer(inputId:bigint, fields? : string[]):Promise<Customer | null>{
@@ -50,7 +50,7 @@ export class customersRepository{
         } 
     }
 
-    async updateUserById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
+    async updateCustomerById(inputId:bigint,updateData:Partial<Customer>):Promise<void>{
         const {id,...safeFields}=updateData;
         const result= await this.customerRepo.update({id:inputId},safeFields);
         if(result.affected===0){

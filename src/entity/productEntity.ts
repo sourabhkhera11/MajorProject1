@@ -5,7 +5,7 @@ export class Product {
   @PrimaryGeneratedColumn({type: "bigint"})
   id !: bigint;
 
-  @Column({type : "varchar"})
+  @Column({type : "text"})
   title !: string;
   
   @Column({type : "text"})
