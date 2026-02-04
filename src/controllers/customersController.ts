@@ -53,7 +53,7 @@ export class CustomerController extends BaseController{
             }
             return {
                 message: "Data fetched successfully",
-                data: customers
+                result: customers
             }
         },HTTP_STATUS.OK)
     }
@@ -88,7 +88,7 @@ export class CustomerController extends BaseController{
             }
             await custRepo.updateUserById(ctx.params.id,customerData);
             return{
-                message:"Customer updated successfully"
+                message:"Customer updated successfully",
             }
         },HTTP_STATUS.OK)
     }
