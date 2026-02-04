@@ -47,8 +47,9 @@ export class ProductController extends BaseController{
         return ProductController.execute(ctx,async()=>{
             const take = ctx.query.take ? Number(ctx.query.take) : undefined;
             const skip = ctx.query.skip ? Number(ctx.query.skip) : undefined;
+            const tags = (ctx.query.tags) ? (ctx.query.tags as string).split(',') : [] as string[]; 
             const fields = ctx.query.fields ? (ctx.query.fields as string).split(",") : [] as string[];
-            const products = await productRepo.fetchProducts(take,skip,fields);
+            const products = await productRepo.fetchProducts(take,skip,fields,tags);
             if(!products){
                 throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
             }

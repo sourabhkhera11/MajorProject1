@@ -11,7 +11,7 @@ export class Product {
   @Column({type : "text"})
   description!: string;
 
-  @Column({type : "simple-array"})
+  @Column("text",{array:true})
   tags !: string[];
 
   @CreateDateColumn({ type: "timestamptz" })

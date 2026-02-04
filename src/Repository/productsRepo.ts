@@ -1,4 +1,4 @@
-import { Repository, ReturningStatementNotSupportedError } from "typeorm";
+import { ArrayOverlap, Repository, ReturningStatementNotSupportedError } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/productEntity";
 import { getSafeSelectFields } from "../utils/selectFields";
@@ -24,9 +24,15 @@ export class productRepository{
         return product;
     }
 
-    async fetchProducts(take : number =10,skip : number =0, fields?: string[]) : Promise<Product[]>{
+    async fetchProducts(take : number =10,skip : number =0, fields?: string[], tags ?: string[]) : Promise<Product[]>{
         const safeFields = getSafeSelectFields(AppDataSource, Product, fields);
+        const where: any = {};
+
+        if (tags && tags.length > 0) {
+            where.tags = ArrayOverlap(tags);
+        }
         const products = await this.productRepo.find({
+            where,
             take,
             skip,
             select:safeFields
