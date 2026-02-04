@@ -1,6 +1,8 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/productEntity";
+import { getSafeSelectFields } from "../utils/selectFields";
+
 export class productRepository{
     //first thing is properties define 
     private productRepo : Repository<Product>
@@ -18,5 +20,15 @@ export class productRepository{
             tags: productData.tags
         })
         return product;
+    }
+
+    async fetchProducts(take : number =10,skip : number =0, fields?: string[]) : Promise<Product[]>{
+        const safeFields = getSafeSelectFields(AppDataSource, Product, fields);
+        const products = await this.productRepo.find({
+            take,
+            skip,
+            select:safeFields
+        });
+        return products;
     }
 }

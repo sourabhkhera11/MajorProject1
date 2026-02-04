@@ -5,4 +5,6 @@ const router = new Router({prefix:"/product"});
 
 router.post("/register",ProductController.createProduct);
 
+router.get("/allProducts",ProductController.fetchProducts);
+
 export default router;

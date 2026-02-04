@@ -22,10 +22,10 @@ export class customersRepository{
     }
     
     async fetchAllCustomers( take : number = 10 , skip : number = 0 , fields? : string[]):Promise<Customer[]> {
-        const safeFields = getSafeSelectFields(AppDataSource,Customer,fields);
+        const safeFields = getSafeSelectFields(AppDataSource, Customer, fields);
         const customers=await this.customerRepo.find({
-            take:take,
-            skip:skip,
+            take,
+            skip,
             select:safeFields
         });
         return customers;

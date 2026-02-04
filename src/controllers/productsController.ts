@@ -42,4 +42,20 @@ export class ProductController extends BaseController{
             };
         }, HTTP_STATUS.CREATED);
     }
+
+    static async fetchProducts(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            const take = ctx.query.take ? Number(ctx.query.take) : undefined;
+            const skip = ctx.query.skip ? Number(ctx.query.skip) : undefined;
+            const fields = ctx.query.fields ? (ctx.query.fields as string).split(",") : [] as string[];
+            const products = await productRepo.fetchProducts(take,skip,fields);
+            if(!products){
+                throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
+            }
+            return {
+                message : "FethData fetched successfully!",
+                result : products
+            } 
+        },HTTP_STATUS.OK)
+    }
 }
