@@ -7,4 +7,6 @@ router.post("/register",ProductController.createProduct);
 
 router.get("/allProducts",ProductController.fetchProducts);
 
+router.get("/:id",ProductController.fetchProduct);
+
 export default router;

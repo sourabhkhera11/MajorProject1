@@ -53,9 +53,24 @@ export class ProductController extends BaseController{
                 throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
             }
             return {
-                message : "FethData fetched successfully!",
+                message : "Data fetched successfully!",
                 result : products
             } 
+        },HTTP_STATUS.OK)
+    }
+
+    static async fetchProduct(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            const id : bigint = ctx.params.id;
+            const fields = ctx.query.fields ? (ctx.query.fields as string).split(",") : [] as string[];
+            const product = await productRepo.fetchProduct(id,fields);
+            if(!product){
+                throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
+            }
+            return {
+                message : "Data fetched successfully!",
+                result : product
+            }
         },HTTP_STATUS.OK)
     }
 }

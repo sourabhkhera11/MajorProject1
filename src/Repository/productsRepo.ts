@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, ReturningStatementNotSupportedError } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/productEntity";
 import { getSafeSelectFields } from "../utils/selectFields";
@@ -31,4 +31,15 @@ export class productRepository{
         });
         return products;
     }
+
+    async fetchProduct(id : bigint , fields? : string[]) : Promise<Product | null>{
+        const safeFields = getSafeSelectFields(AppDataSource, Product, fields);
+        const product = await this.productRepo.findOne({
+            where :{
+                id
+            },
+            select:safeFields
+        })
+        return product;
+    } 
 }
