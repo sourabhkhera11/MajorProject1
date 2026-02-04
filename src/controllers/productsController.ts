@@ -61,9 +61,8 @@ export class ProductController extends BaseController{
 
     static async fetchProduct(ctx:Context){
         return ProductController.execute(ctx,async()=>{
-            const id : bigint = ctx.params.id;
             const fields = ctx.query.fields ? (ctx.query.fields as string).split(",") : [] as string[];
-            const product = await productRepo.fetchProduct(id,fields);
+            const product = await productRepo.fetchProduct(ctx.params.id,fields);
             if(!product){
                 throw new AppError("No product found",HTTP_STATUS.NOT_FOUND);
             }
@@ -72,5 +71,14 @@ export class ProductController extends BaseController{
                 result : product
             }
         },HTTP_STATUS.OK)
+    }
+
+    static async deleteProduct(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            await productRepo.deleteProduct(ctx.params.id);
+            return{
+                message : "Product deleted successfully!",
+            }
+        },HTTP_STATUS.OK) 
     }
 }

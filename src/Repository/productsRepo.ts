@@ -2,6 +2,8 @@ import { Repository, ReturningStatementNotSupportedError } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Product } from "../entity/productEntity";
 import { getSafeSelectFields } from "../utils/selectFields";
+import { AppError } from "../utils/AppError";
+import { HTTP_STATUS } from "../utils/constant";
 
 export class productRepository{
     //first thing is properties define 
@@ -42,4 +44,14 @@ export class productRepository{
         })
         return product;
     } 
+
+    async deleteProduct(id : bigint) : Promise<void>{
+        const result = await this.productRepo.delete({
+            id
+        });
+        if(result.affected === 0){
+            throw new AppError("Product Not Found",HTTP_STATUS.NOT_FOUND);
+        }
+    }
+
 }

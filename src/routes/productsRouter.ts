@@ -9,4 +9,6 @@ router.get("/allProducts",ProductController.fetchProducts);
 
 router.get("/:id",ProductController.fetchProduct);
 
+router.delete("/:id",ProductController.deleteProduct);
+
 export default router;
