@@ -4,6 +4,7 @@ import morgan from "koa-morgan";
 import customerRoutes from "./routes/customersRouter";
 import productRoutes from "./routes/productsRouter";
 import variantRoutes from "./routes/variantsRouter";
+import collectionRoutes from "./routes/collectionRouter";
 const app = new Koa();
 
 app.use(morgan("dev"));
@@ -17,5 +18,8 @@ app.use(productRoutes.allowedMethods());
 
 app.use(variantRoutes.routes());
 app.use(variantRoutes.allowedMethods());
+
+app.use(collectionRoutes.routes());
+app.use(collectionRoutes.allowedMethods());
 
 export default app;

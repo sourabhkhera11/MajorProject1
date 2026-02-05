@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, ManyToMany } from "typeorm";
 import { Variant } from "./variantEntity";
-import { Collections } from "./collectionEntity";
+import { Collection } from "./collectionEntity";
 
 @Entity("product")
 export class Product {
@@ -22,7 +22,7 @@ export class Product {
   @OneToMany(() => Variant, variant => variant.productId)
   variants!: Variant[];
 
-  @ManyToMany(() => Collections, (collection) => collection.products)
-  collections!: Collections[]
+  @ManyToMany(() => Collection, (collection) => collection.products)
+  collections!: Collection[]
 
 }

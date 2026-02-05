@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, J
 import { Product } from "./productEntity";
 
 @Entity("collection")
-export class Collections {
+export class Collection {
   @PrimaryGeneratedColumn({type: "bigint"})
   id !: bigint;
 
