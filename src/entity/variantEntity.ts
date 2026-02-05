@@ -22,5 +22,6 @@ export class Variant {
     nullable: false,
     onDelete: "CASCADE",
   })
-  product!: Product;
+  @JoinColumn({name:"productId"})
+  productId!: Product;
 }

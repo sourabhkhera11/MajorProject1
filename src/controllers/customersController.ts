@@ -19,7 +19,8 @@ export class CustomerController extends BaseController{
                 phone,
                 email 
             }=customerData;
-
+            console.log(name, typeof name);
+            
             if (!name) {
                 throw new AppError("Name is required!",HTTP_STATUS.BAD_REQUEST);
             }

@@ -18,6 +18,6 @@ export class Product {
   @CreateDateColumn({ type: "timestamptz" })
   createdAt !: Date;
 
-  @OneToMany(() => Variant, variant => variant.product)
+  @OneToMany(() => Variant, variant => variant.productId)
   variants!: Variant[];
 }
