@@ -66,4 +66,13 @@ export class productRepository{
             throw new AppError("Product Not Found",HTTP_STATUS.NOT_FOUND);
         }
     }
+
+    async productWithVariants() : Promise<Product[]> {
+        const result = await this.productRepo.find({
+            relations:{
+                variants:true
+            }
+        })
+        return result;
+    }
 }

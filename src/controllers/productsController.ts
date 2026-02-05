@@ -106,4 +106,17 @@ export class ProductController extends BaseController{
             }
         },HTTP_STATUS.OK)
     }
+
+    static async fetchProductWithVariants(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            const data = await productRepo.productWithVariants();
+            if(!data){
+                throw new AppError("No product found!",HTTP_STATUS.NOT_FOUND);
+            }
+            return { 
+                message : "Data Fetced Successfully!",
+                results : data
+            }
+        },HTTP_STATUS.OK)
+    }
 }
