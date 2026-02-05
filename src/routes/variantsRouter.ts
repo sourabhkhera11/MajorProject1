@@ -1,8 +1,16 @@
 import Router from "koa-router";
-import { variantController } from "../controllers/variantController";
+import { VariantController } from "../controllers/variantController";
 
 const router = new Router({prefix:"/variant"});
 
-router.post("/register",variantController.createvariant);
+router.post("/register",VariantController.createvariant);
+
+router.get("/allVariants",VariantController.fetchVariants);
+
+router.get("/:id",VariantController.fetchVariant);
+
+router.delete("/:id",VariantController.deleteVariant);
+
+router.patch("/:id",VariantController.updateVariant)
 
 export default router;
