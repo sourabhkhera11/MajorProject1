@@ -35,7 +35,7 @@ export class VariantController extends BaseController{
                 }
 
                 if(!stock){
-                    throw new AppError("Price is required!",HTTP_STATUS.BAD_REQUEST);
+                    throw new AppError("Stock is required!",HTTP_STATUS.BAD_REQUEST);
                 }
 
                 if(!productId){
