@@ -98,7 +98,9 @@ export class CollectionController extends BaseController{
             static async addProductToCollection(ctx:Context){
                 return CollectionController.execute(ctx,async()=>{
 
-                    const productIds : bigint[] = (ctx.request  as any).body.productId;
+                    const productIds  = (ctx.request  as any).body.productId;
+                    console.log("ProductIds",productIds,typeof productIds,typeof productIds[0]);
+                    
                     const collectionId = ctx.params.id;
 
                     if (!Array.isArray(productIds) || productIds.length === 0) {
@@ -113,11 +115,13 @@ export class CollectionController extends BaseController{
 
 
                     const existingProduct = await productRepo.fetchFromProductArray(productIds);
+                    console.log("existingProduct",typeof existingProduct);
                     
                     const existingProductIds = existingProduct.map(p => p.id);
-
+                    console.log("existingProductIds",typeof existingProductIds, typeof existingProductIds[0]);
+                    
                     const notExistingProductIds = productIds.filter(
-                        id => !existingProductIds.includes(id)
+                        id => !existingProductIds.includes(id.toString())
                     )                    
                     
                     const alreadyLinkedIds = collection.products
@@ -132,10 +136,25 @@ export class CollectionController extends BaseController{
                     return{
                         message : "Product is added to the collection",
                         results : result,
-                        productAdd : productsToAdd.map(p => p.id)
+                        productAdd : productsToAdd.map(p => p.id),
+                        notExistingProduct : notExistingProductIds,
+                        alreadyLinkedProdcuts : alreadyLinkedIds 
                     }
 
                 },HTTP_STATUS.OK)
+            }
+
+            static async collectionWithProducts(ctx:Context){
+                return CollectionController.execute(ctx,async()=>{
+                    const result = await collectionRepo.fetchCollectionWithProduct();
+                    if(!result){
+                        throw new AppError("No collection found",HTTP_STATUS.NOT_FOUND);
+                    }
+                    return {
+                        message : "Data fetched successfully!",
+                        result : result
+                    }
+                },HTTP_STATUS.OK);
             }
         
 }

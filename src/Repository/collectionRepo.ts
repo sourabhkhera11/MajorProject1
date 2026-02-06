@@ -69,4 +69,14 @@ export class collectionRepository{
             
             return collection;
         }
+
+        async fetchCollectionWithProduct() : Promise<Collection[]>{
+            const result = await this.collectionRepo.find({
+                relations :{
+                    products : true
+                }
+            })
+            return result;
+        }
+
     }
