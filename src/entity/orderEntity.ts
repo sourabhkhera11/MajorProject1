@@ -1,27 +1,45 @@
-// import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
-// import { Product } from "./productEntity";
-// @Entity("variants")
-// export class Variant {
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
+import { Product } from "./productEntity";
+import { Customer } from "./customersEntity";
+import { Variant } from "./variantEntity";
+import { OrderStatus } from "../utils/enums";
 
-//   @PrimaryGeneratedColumn({type : "bigint"})
-//   id!: bigint;
+@Entity("orders")
+export class Order {
 
-//   @Column({ unique: true })
-//   sku!: string;
+  @PrimaryGeneratedColumn({type : "bigint"})
+  id!: bigint;
 
-//   @Column("int")
-//   numberOfUnitsOrdered!: number;
+  @Column({type : "enum", enum : OrderStatus})
+  status!: OrderStatus;
 
-//   @Column("decimal")
-//   totalAmount!: number;
+  @Column("int")
+  numberOfUnitsOrdered!: number;
 
-//   @CreateDateColumn({ type: "timestamptz" })
-//     createdAt !: Date;
+  @Column("decimal")
+  totalAmount!: number;
 
-//   @ManyToOne(() => Product, product => product.variants, {
-//     nullable: false,
-//     onDelete: "CASCADE",
-//   })
-//   @JoinColumn({name:"productId"})
-//   productId!: Product;
-// }
+  @CreateDateColumn({ type: "timestamptz" })
+    createdAt !: Date;
+
+  @ManyToOne(() => Product, product => product.orders, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({name:"productId"})
+  productId!: Product;
+
+  @ManyToOne(() => Variant, variant => variant.orders, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({name:"variantId"})
+  variantId!: Variant;
+
+  @ManyToOne(() => Customer, customer => customer.orders, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({name:"customerId"})
+  customerId!: Customer;
+}

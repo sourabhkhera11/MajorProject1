@@ -4,6 +4,7 @@ import { Customer } from "./entity/customersEntity";
 import { Product } from "./entity/productEntity";
 import { Variant } from "./entity/variantEntity";
 import { Collection } from "./entity/collectionEntity"
+import { Order } from "./entity/orderEntity";
 export const AppDataSource = new DataSource({
   type: "postgres", 
   host: "localhost",
@@ -12,5 +13,5 @@ export const AppDataSource = new DataSource({
   password: "asdf",
   database: "e-commerce",
   synchronize: true, 
-  entities: [Customer,Product,Variant,Collection],
+  entities: [Customer,Product,Variant,Collection,Order],
 });

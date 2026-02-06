@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, ManyToMany } from "typeorm";
 import { Variant } from "./variantEntity";
 import { Collection } from "./collectionEntity";
-
+import { Order } from "./orderEntity";
+ 
 @Entity("product")
 export class Product {
   @PrimaryGeneratedColumn({type: "bigint"})
@@ -23,6 +24,9 @@ export class Product {
   variants!: Variant[];
 
   @ManyToMany(() => Collection, (collection) => collection.products)
-  collections!: Collection[]
+  collections!: Collection[];
+
+  @OneToMany(() => Order, order => order.productId)
+  orders!: Order[];
 
 }

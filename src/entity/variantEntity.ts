@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn ,OneToMany } from "typeorm";
 import { Product } from "./productEntity";
+import { Order } from "./orderEntity";
 @Entity("variants")
 export class Variant {
 
@@ -17,6 +18,9 @@ export class Variant {
 
   @Column({ type: "jsonb" })
   attributes!: Record<string, any>;
+  
+  @OneToMany(() => Order, order => order.variantId)
+  orders!: Order[];
 
   @ManyToOne(() => Product, product => product.variants, {
     nullable: false,
@@ -24,4 +28,5 @@ export class Variant {
   })
   @JoinColumn({name:"productId"})
   productId!: Product;
+
 }
