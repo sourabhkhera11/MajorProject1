@@ -5,6 +5,8 @@ const router = new Router({prefix:"/collection"});
 
 router.post("/register", CollectionController.createCollection);
 
+router.post("/:id",CollectionController.addProductToCollection)
+
 router.get('/allCollection', CollectionController.fetchCollections);
 
 router.get('/:id',CollectionController.fetchCollection)

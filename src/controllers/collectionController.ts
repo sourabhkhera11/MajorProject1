@@ -3,8 +3,10 @@ import { collectionRepository } from "../Repository/collectionRepo";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
+import { productRepository } from "../Repository/productsRepo";
 
 const collectionRepo = new collectionRepository();
+const productRepo = new productRepository();
 
 export class CollectionController extends BaseController{
 
@@ -90,6 +92,49 @@ export class CollectionController extends BaseController{
                     return{
                         message : "Collection updated successfully"
                     }
+                },HTTP_STATUS.OK)
+            }
+
+            static async addProductToCollection(ctx:Context){
+                return CollectionController.execute(ctx,async()=>{
+
+                    const productIds : bigint[] = (ctx.request  as any).body.productId;
+                    const collectionId = ctx.params.id;
+
+                    if (!Array.isArray(productIds) || productIds.length === 0) {
+                        throw new AppError("productId must be a non-empty array", HTTP_STATUS.BAD_REQUEST);
+                    }
+
+                    const collection = await collectionRepo.fetchCollection(collectionId,[],true);
+
+                    if(!collection){
+                        throw new AppError("Collection not found!",HTTP_STATUS.BAD_REQUEST);
+                    }
+
+
+                    const existingProduct = await productRepo.fetchFromProductArray(productIds);
+                    
+                    const existingProductIds = existingProduct.map(p => p.id);
+
+                    const notExistingProductIds = productIds.filter(
+                        id => !existingProductIds.includes(id)
+                    )                    
+                    
+                    const alreadyLinkedIds = collection.products
+                        .filter(p => existingProductIds.includes(p.id))
+                        .map(p => p.id);
+
+                    const productsToAdd = existingProduct.filter(
+                        p => !collection.products.some(cp => cp.id === p.id)
+                    );
+
+                    const result = await collectionRepo.addProductToCollection(collection,productsToAdd);
+                    return{
+                        message : "Product is added to the collection",
+                        results : result,
+                        productAdd : productsToAdd.map(p => p.id)
+                    }
+
                 },HTTP_STATUS.OK)
             }
         

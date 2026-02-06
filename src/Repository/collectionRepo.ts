@@ -4,6 +4,7 @@ import { AppDataSource } from "../data-source";
 import { AppError } from "../utils/AppError";
 import { getSafeSelectFields } from "../utils/selectFields";
 import { HTTP_STATUS } from "../utils/constant";
+import { Product } from "../entity/productEntity";
 
 export class collectionRepository{
     //properties 
@@ -32,13 +33,16 @@ export class collectionRepository{
             return collection;
         }
     
-        async fetchCollection(id : bigint , fields? : string[]) : Promise<Collection | null>{
+        async fetchCollection(id : bigint , fields? : string[] ,fetchProduct : boolean = false) : Promise<Collection | null>{
             const safeFields = getSafeSelectFields(AppDataSource, Collection, fields);
             const collection = await this.collectionRepo.findOne({
                 where :{
                     id
                 },
-                select:safeFields
+                select:safeFields,
+                relations: {
+                    products : fetchProduct
+                }
             })
             return collection;
         } 
@@ -58,4 +62,11 @@ export class collectionRepository{
                 throw new AppError("Collection Not Found",HTTP_STATUS.NOT_FOUND);
             }
         }
-}
+
+        async addProductToCollection(collection : Collection , product : Product[]){
+            collection.products.push(...product);
+            await this.collectionRepo.save(collection);
+            
+            return collection;
+        }
+    }
