@@ -99,7 +99,6 @@ export class CollectionController extends BaseController{
                 return CollectionController.execute(ctx,async()=>{
 
                     const productIds  = (ctx.request  as any).body.productId;
-                    console.log("ProductIds",productIds,typeof productIds,typeof productIds[0]);
                     
                     const collectionId = ctx.params.id;
 
@@ -115,10 +114,8 @@ export class CollectionController extends BaseController{
 
 
                     const existingProduct = await productRepo.fetchFromProductArray(productIds);
-                    console.log("existingProduct",typeof existingProduct);
                     
                     const existingProductIds = existingProduct.map(p => p.id);
-                    console.log("existingProductIds",typeof existingProductIds, typeof existingProductIds[0]);
                     
                     const notExistingProductIds = productIds.filter(
                         id => !existingProductIds.includes(id.toString())
