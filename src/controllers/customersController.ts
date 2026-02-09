@@ -103,4 +103,14 @@ export class CustomerController extends BaseController{
             }
         },HTTP_STATUS.OK)
     }
+
+    static async allOrdersWithProductName(ctx:Context){
+        return CustomerController.execute(ctx,async ()=>{
+            const result = await custRepo.allOrdersOfCustomer(ctx.params.id);
+            return{
+                message:"Data fetch successfully!",
+                results : result
+            }
+        },HTTP_STATUS.OK)
+    }
 }

@@ -64,4 +64,31 @@ export class customersRepository{
         });
         return (customer) ? true : false;
     }
+
+    async allOrdersOfCustomer(inputId : bigint) : Promise<Customer[]>{
+        const result = await this.customerRepo.find({
+            where:{
+                id:inputId
+            },
+            relations : {
+                orders : {
+                    productId : true
+                }
+            }, 
+            select :{
+                id:true,
+                name:true,
+                orders:{
+                    id:true,
+                    status:true,
+                    totalAmount:true,
+                    productId:{
+                        id:true,
+                        title:true
+                    }
+                }
+            }
+        })
+        return result;
+    }
 }
