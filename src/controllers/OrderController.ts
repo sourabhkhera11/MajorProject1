@@ -5,9 +5,9 @@ import { variantRepository } from "../Repository/VariantsRepo";
 import { BaseController } from "./BaseController";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
-import { HTTP_STATUS } from "../utils/constant";
-import { isValidStatus } from "../utils/helper";
-import { OrderStatus } from "../utils/enums";
+import { HTTP_STATUS } from "../utils/Constant";
+import { isValidStatus } from "../utils/Helper";
+import { OrderStatus } from "../utils/Enums";
 
 const orderRepo = new orderRepository();
 const productRepo = new productRepository();

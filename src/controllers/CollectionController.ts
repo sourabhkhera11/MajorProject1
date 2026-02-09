@@ -2,7 +2,7 @@ import { BaseController } from "./BaseController";
 import { collectionRepository } from "../Repository/CollectionRepo";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
-import { HTTP_STATUS } from "../utils/constant";
+import { HTTP_STATUS } from "../utils/Constant";
 import { productRepository } from "../Repository/ProductsRepo";
 
 const collectionRepo = new collectionRepository();

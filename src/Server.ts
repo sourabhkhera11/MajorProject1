@@ -1,6 +1,6 @@
-import app from "./app";
-import { AppDataSource } from "./data-source";
-import { PORT } from "./utils/constant";
+import app from "./App";
+import { AppDataSource } from "./Data-source";
+import { PORT } from "./utils/Constant";
 
 AppDataSource.initialize()
   .then(() => {

@@ -1,9 +1,9 @@
 import { ArrayOverlap, Repository, In } from "typeorm";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../Data-source";
 import { Product } from "../entity/ProductEntity";
-import { getSafeSelectFields } from "../utils/selectFields";
+import { getSafeSelectFields } from "../utils/SelectFields";
 import { AppError } from "../utils/AppError";
-import { HTTP_STATUS } from "../utils/constant";
+import { HTTP_STATUS } from "../utils/Constant";
 
 export class productRepository{
     

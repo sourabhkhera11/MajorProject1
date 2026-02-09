@@ -1,9 +1,9 @@
 import { Repository } from "typeorm"
 import { Variant } from "../entity/VariantEntity"
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../Data-source";
 import { AppError } from "../utils/AppError";
-import { getSafeSelectFields } from "../utils/selectFields";
-import { HTTP_STATUS } from "../utils/constant";
+import { getSafeSelectFields } from "../utils/SelectFields";
+import { HTTP_STATUS } from "../utils/Constant";
 
 export class variantRepository{
     

@@ -2,7 +2,7 @@ import { BaseController } from "./BaseController";
 import { variantRepository } from "../Repository/VariantsRepo";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
-import { HTTP_STATUS } from "../utils/constant";
+import { HTTP_STATUS } from "../utils/Constant";
 import { productRepository } from "../Repository/ProductsRepo";
 const variantRepo = new variantRepository();
 const productRepo = new productRepository();

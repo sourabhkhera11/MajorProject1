@@ -1,10 +1,10 @@
 import { Repository } from "typeorm"
 import { Order } from "../entity/OrderEntity";
 import { Collection } from "../entity/CollectionEntity";
-import { AppDataSource } from "../data-source";
+import { AppDataSource } from "../Data-source";
 import { AppError } from "../utils/AppError";
-import { getSafeSelectFields } from "../utils/selectFields";
-import { HTTP_STATUS } from "../utils/constant";
+import { getSafeSelectFields } from "../utils/SelectFields";
+import { HTTP_STATUS } from "../utils/Constant";
 
 export class orderRepository{
     

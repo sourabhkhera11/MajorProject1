@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDa
 import { Product } from "./ProductEntity";
 import { Customer } from "./CustomersEntity";
 import { Variant } from "./VariantEntity";
-import { OrderStatus } from "../utils/enums";
+import { OrderStatus } from "../utils/Enums";
 
 @Entity("orders")
 export class Order {

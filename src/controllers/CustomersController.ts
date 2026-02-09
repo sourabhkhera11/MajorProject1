@@ -1,6 +1,6 @@
 import { customersRepository } from "../Repository/CustomersRepo";
-import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/helper";
-import { HTTP_STATUS } from "../utils/constant";
+import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/Helper";
+import { HTTP_STATUS } from "../utils/Constant";
 import { AppError } from "../utils/AppError";
 import { BaseController } from "./BaseController";
 import { Context } from "koa";

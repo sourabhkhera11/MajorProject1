@@ -1,11 +1,11 @@
 import Koa from "koa";
 const bodyParser =require("koa-bodyparser");
 import morgan from "koa-morgan";
-import customerRoutes from "./routes/customersRouter";
-import productRoutes from "./routes/productsRouter";
-import variantRoutes from "./routes/variantsRouter";
-import collectionRoutes from "./routes/collectionRouter";
-import orderRoutes from "./routes/orderRouter"
+import customerRoutes from "./routes/CustomersRouter";
+import productRoutes from "./routes/ProductsRouter";
+import variantRoutes from "./routes/VariantsRouter";
+import collectionRoutes from "./routes/CollectionRouter";
+import orderRoutes from "./routes/OrderRouter"
 const app = new Koa();
 
 app.use(morgan("dev"));
