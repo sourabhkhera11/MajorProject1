@@ -7,7 +7,9 @@ router.post("/register",ProductController.createProduct);
 
 router.get("/allProducts",ProductController.fetchProducts);
 
-router.get("/variants",ProductController.fetchProductWithVariants)
+router.get("/variants",ProductController.fetchProductWithVariants);
+
+router.get("/:id/sales",ProductController.totalSales);
 
 router.get("/:id",ProductController.fetchProduct);
 

@@ -80,4 +80,25 @@ export class productRepository{
         });
         return existingProducts;
     }
+
+    async totalSalesOfProduct(productId : bigint) : Promise<Product | null>{
+        const product = await this.productRepo.findOne({
+            where : {
+                id : productId
+            },
+            relations :{
+                orders : true
+            },
+            select : {
+                id : true,
+                title : true,
+                orders : {
+                    totalAmount : true,
+                    numberOfUnitsOrdered :true,
+                    id : true
+                }
+            }
+        })
+        return product;
+    }
 }

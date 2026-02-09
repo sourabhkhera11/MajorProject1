@@ -119,4 +119,20 @@ export class ProductController extends BaseController{
             }
         },HTTP_STATUS.OK)
     }
+
+    static async totalSales(ctx:Context){
+        return ProductController.execute(ctx,async()=>{
+            const data =  await productRepo.totalSalesOfProduct(ctx.params.id);
+            if(!data){
+                throw new AppError("No product found!",HTTP_STATUS.NOT_FOUND);
+            }
+            const numberOfProducts = data.orders.reduce((num, product) => num + Number(product.numberOfUnitsOrdered),0);
+            const totalSales = data.orders.reduce((amount, product) => amount+ Number(product.totalAmount),0);
+            return{
+                message : "Details are calculated successfully!",
+                totalNumberOfItemBeingSold : numberOfProducts,
+                totalSales : totalSales
+            }
+        })
+    }
 }
