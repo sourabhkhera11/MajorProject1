@@ -4,6 +4,7 @@ import { Context } from "koa";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/Constant";
 import { Product } from "../entity/ProductEntity";
+import { log } from "node:console";
 
 const productRepo = new productRepository();
 
@@ -139,7 +140,7 @@ export class ProductController extends BaseController {
     return ProductController.execute(
       ctx,
       async () => {
-        const data = await productRepo.productWithVariants();
+        const data = await productRepo.productWithVariants(ctx.params.id);
         if (!data) {
           throw new AppError("No product found!", HTTP_STATUS.NOT_FOUND);
         }

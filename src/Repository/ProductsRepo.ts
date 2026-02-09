@@ -72,8 +72,11 @@ export class productRepository {
     }
   }
 
-  async productWithVariants(): Promise<Product[]> {
+  async productWithVariants(productId?: bigint): Promise<Product[]> {
     const result = await this.productRepo.find({
+        where:{
+            id:productId
+        },
       relations: {
         variants: true,
       },
