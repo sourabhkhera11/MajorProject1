@@ -1,10 +1,10 @@
 import { Repository } from "typeorm"
-import { Collection } from "../entity/collectionEntity";
+import { Collection } from "../entity/CollectionEntity";
 import { AppDataSource } from "../data-source";
 import { AppError } from "../utils/AppError";
 import { getSafeSelectFields } from "../utils/selectFields";
 import { HTTP_STATUS } from "../utils/constant";
-import { Product } from "../entity/productEntity";
+import { Product } from "../entity/ProductEntity";
 
 export class collectionRepository{
     

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
-import { Product } from "./productEntity";
-import { Customer } from "./customersEntity";
-import { Variant } from "./variantEntity";
+import { Product } from "./ProductEntity";
+import { Customer } from "./CustomersEntity";
+import { Variant } from "./VariantEntity";
 import { OrderStatus } from "../utils/enums";
 
 @Entity("orders")

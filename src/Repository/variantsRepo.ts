@@ -1,5 +1,5 @@
 import { Repository } from "typeorm"
-import { Variant } from "../entity/variantEntity"
+import { Variant } from "../entity/VariantEntity"
 import { AppDataSource } from "../data-source";
 import { AppError } from "../utils/AppError";
 import { getSafeSelectFields } from "../utils/selectFields";

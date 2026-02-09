@@ -1,10 +1,10 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Customer } from "./entity/customersEntity";
-import { Product } from "./entity/productEntity";
-import { Variant } from "./entity/variantEntity";
-import { Collection } from "./entity/collectionEntity"
-import { Order } from "./entity/orderEntity";
+import { Customer } from "./entity/CustomersEntity";
+import { Product } from "./entity/ProductEntity";
+import { Variant } from "./entity/VariantEntity";
+import { Collection } from "./entity/CollectionEntity"
+import { Order } from "./entity/OrderEntity";
 export const AppDataSource = new DataSource({
   type: "postgres", 
   host: "localhost",

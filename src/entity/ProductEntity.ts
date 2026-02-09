@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany, ManyToMany } from "typeorm";
-import { Variant } from "./variantEntity";
-import { Collection } from "./collectionEntity";
-import { Order } from "./orderEntity";
+import { Variant } from "./VariantEntity";
+import { Collection } from "./CollectionEntity";
+import { Order } from "./OrderEntity";
  
 @Entity("product")
 export class Product {

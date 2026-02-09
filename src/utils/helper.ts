@@ -1,4 +1,4 @@
-import { Order } from "../entity/orderEntity";
+import { Order } from "../entity/OrderEntity";
 import { Gender, OrderStatus } from "./enums";
 const phoneRegex = /^\+[1-9]\d{9,13}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

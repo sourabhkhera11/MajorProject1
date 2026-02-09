@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { Customer } from "../entity/customersEntity";
+import { Customer } from "../entity/CustomersEntity";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
 import { getSafeSelectFields } from "../utils/selectFields";

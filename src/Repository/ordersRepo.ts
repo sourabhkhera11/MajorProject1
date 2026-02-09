@@ -1,6 +1,6 @@
 import { Repository } from "typeorm"
-import { Order } from "../entity/orderEntity";
-import { Collection } from "../entity/collectionEntity";
+import { Order } from "../entity/OrderEntity";
+import { Collection } from "../entity/CollectionEntity";
 import { AppDataSource } from "../data-source";
 import { AppError } from "../utils/AppError";
 import { getSafeSelectFields } from "../utils/selectFields";
