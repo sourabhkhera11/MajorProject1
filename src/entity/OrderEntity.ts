@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from "typeorm";
 import { Product } from "./ProductEntity";
 import { Customer } from "./CustomersEntity";
 import { Variant } from "./VariantEntity";
@@ -6,11 +13,10 @@ import { OrderStatus } from "../utils/Enums";
 
 @Entity("orders")
 export class Order {
-
-  @PrimaryGeneratedColumn({type : "bigint"})
+  @PrimaryGeneratedColumn({ type: "bigint" })
   id!: bigint;
 
-  @Column({type : "enum", enum : OrderStatus})
+  @Column({ type: "enum", enum: OrderStatus })
   status!: OrderStatus;
 
   @Column("int")
@@ -20,26 +26,26 @@ export class Order {
   totalAmount!: number;
 
   @CreateDateColumn({ type: "timestamptz" })
-    createdAt !: Date;
+  createdAt!: Date;
 
-  @ManyToOne(() => Product, product => product.orders, {
+  @ManyToOne(() => Product, (product) => product.orders, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  @JoinColumn({name:"productId"})
+  @JoinColumn({ name: "productId" })
   productId!: Product;
 
-  @ManyToOne(() => Variant, variant => variant.orders, {
+  @ManyToOne(() => Variant, (variant) => variant.orders, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  @JoinColumn({name:"variantId"})
+  @JoinColumn({ name: "variantId" })
   variantId!: Variant;
 
-  @ManyToOne(() => Customer, customer => customer.orders, {
+  @ManyToOne(() => Customer, (customer) => customer.orders, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  @JoinColumn({name:"customerId"})
+  @JoinColumn({ name: "customerId" })
   customerId!: Customer;
 }

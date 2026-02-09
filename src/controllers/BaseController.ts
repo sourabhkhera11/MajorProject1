@@ -1,11 +1,10 @@
 import { AppError } from "../utils/AppError";
 import { Context } from "koa";
 export class BaseController {
-
   protected static async execute(
     ctx: Context,
     fn: () => Promise<any>,
-    successStatus = 200
+    successStatus = 200,
   ) {
     try {
       const data = await fn();
@@ -13,16 +12,14 @@ export class BaseController {
       ctx.status = successStatus;
       ctx.body = {
         success: true,
-        ...data
+        ...data,
       };
-
     } catch (error: any) {
-
       if (error instanceof AppError) {
         ctx.status = error.statusCode;
         ctx.body = {
           success: false,
-          message: error.message
+          message: error.message,
         };
         return;
       }
@@ -32,7 +29,7 @@ export class BaseController {
       ctx.status = 500;
       ctx.body = {
         success: false,
-        message: "Internal Server Error"
+        message: "Internal Server Error",
       };
     }
   }

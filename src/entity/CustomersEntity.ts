@@ -1,23 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToMany,
+} from "typeorm";
 import { Order } from "./OrderEntity";
 
 @Entity("customer")
 export class Customer {
-  @PrimaryGeneratedColumn({type: "bigint"})
-  id !: bigint;
+  @PrimaryGeneratedColumn({ type: "bigint" })
+  id!: bigint;
 
-  @Column({type : "varchar"})
-  name !: string;
-  
-  @Column({type : "text", unique: true })
+  @Column({ type: "varchar" })
+  name!: string;
+
+  @Column({ type: "text", unique: true })
   email!: string;
 
-  @Column({type : "varchar", length : 15})
-  phone !: string;
+  @Column({ type: "varchar", length: 15 })
+  phone!: string;
 
   @CreateDateColumn({ type: "timestamptz" })
-  createdAt !: Date;
+  createdAt!: Date;
 
-  @OneToMany(() => Order, order => order.customerId)
+  @OneToMany(() => Order, (order) => order.customerId)
   orders!: Order[];
 }

@@ -1,20 +1,20 @@
 import Router from "koa-router";
 import { CollectionController } from "../controllers/CollectionController";
 
-const router = new Router({prefix:"/collection"});
+const router = new Router({ prefix: "/collection" });
 
 router.post("/register", CollectionController.createCollection);
 
-router.get('/allCollection', CollectionController.fetchCollections);
+router.get("/allCollection", CollectionController.fetchCollections);
 
-router.get("/products",CollectionController.collectionWithProducts)
+router.get("/products", CollectionController.collectionWithProducts);
 
-router.post("/:id",CollectionController.addProductToCollection)
+router.post("/:id", CollectionController.addProductToCollection);
 
-router.get('/:id',CollectionController.fetchCollection)
+router.get("/:id", CollectionController.fetchCollection);
 
-router.delete('/:id',CollectionController.deleteCollection)
+router.delete("/:id", CollectionController.deleteCollection);
 
-router.patch('/:id',CollectionController.updateCollection);
+router.patch("/:id", CollectionController.updateCollection);
 
 export default router;

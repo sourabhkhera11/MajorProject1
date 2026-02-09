@@ -1,10 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn ,OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from "typeorm";
 import { Product } from "./ProductEntity";
 import { Order } from "./OrderEntity";
 @Entity("variants")
 export class Variant {
-
-  @PrimaryGeneratedColumn({type : "bigint"})
+  @PrimaryGeneratedColumn({ type: "bigint" })
   id!: bigint;
 
   @Column({ unique: true })
@@ -18,15 +24,14 @@ export class Variant {
 
   @Column({ type: "jsonb" })
   attributes!: Record<string, any>;
-  
-  @OneToMany(() => Order, order => order.variantId)
+
+  @OneToMany(() => Order, (order) => order.variantId)
   orders!: Order[];
 
-  @ManyToOne(() => Product, product => product.variants, {
+  @ManyToOne(() => Product, (product) => product.variants, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  @JoinColumn({name:"productId"})
+  @JoinColumn({ name: "productId" })
   productId!: Product;
-
 }
