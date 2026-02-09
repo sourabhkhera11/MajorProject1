@@ -1,7 +1,7 @@
-import { orderRepository } from "../Repository/ordersRepo";
-import { productRepository } from "../Repository/productsRepo";
-import { customersRepository } from "../Repository/customersRepo";
-import { variantRepository } from "../Repository/variantsRepo";
+import { orderRepository } from "../Repository/OrdersRepo";
+import { productRepository } from "../Repository/ProductsRepo";
+import { customersRepository } from "../Repository/CustomersRepo";
+import { variantRepository } from "../Repository/VariantsRepo";
 import { BaseController } from "./BaseController";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";

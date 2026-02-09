@@ -1,4 +1,4 @@
-import { customersRepository } from "../Repository/customersRepo";
+import { customersRepository } from "../Repository/CustomersRepo";
 import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/helper";
 import { HTTP_STATUS } from "../utils/constant";
 import { AppError } from "../utils/AppError";

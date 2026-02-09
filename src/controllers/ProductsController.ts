@@ -1,4 +1,4 @@
-import { productRepository } from "../Repository/productsRepo";
+import { productRepository } from "../Repository/ProductsRepo";
 import { BaseController } from "./BaseController";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";

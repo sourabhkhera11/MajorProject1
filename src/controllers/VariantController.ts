@@ -1,9 +1,9 @@
 import { BaseController } from "./BaseController";
-import { variantRepository } from "../Repository/variantsRepo";
+import { variantRepository } from "../Repository/VariantsRepo";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
-import { productRepository } from "../Repository/productsRepo";
+import { productRepository } from "../Repository/ProductsRepo";
 const variantRepo = new variantRepository();
 const productRepo = new productRepository();
 
