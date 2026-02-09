@@ -41,6 +41,9 @@ export class variantRepository{
                     id
                 },
                 select:safeFields,
+                relations : {
+                    productId : true
+                }
             })
             return variant;
         } 
