@@ -6,15 +6,13 @@ import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";
 
 export class productRepository{
-    //first thing is properties define 
+    
     private productRepo : Repository<Product>
 
-    //constructor for initailising the repo
     constructor(){
         this.productRepo = AppDataSource.getRepository(Product);
     }
 
-    //Now all the database related methods you want to perform 
     async insertProduct(productData: Product): Promise<Product>{
         const product = await this.productRepo.save({
             title: productData.title,

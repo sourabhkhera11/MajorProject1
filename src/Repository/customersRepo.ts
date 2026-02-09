@@ -6,6 +6,7 @@ import { HTTP_STATUS } from "../utils/constant";
 import { getSafeSelectFields } from "../utils/selectFields";
 
 export class customersRepository{
+    
     private customerRepo : Repository<Customer>; 
 
     constructor(){

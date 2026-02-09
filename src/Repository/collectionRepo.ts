@@ -7,15 +7,13 @@ import { HTTP_STATUS } from "../utils/constant";
 import { Product } from "../entity/productEntity";
 
 export class collectionRepository{
-    //properties 
+    
     private collectionRepo : Repository<Collection>;
 
-    //Constructor 
     constructor(){
         this.collectionRepo = AppDataSource.getRepository(Collection);
     }
 
-    //Methods 
     async createCollections(collectionData : Collection) : Promise<Collection>{
          const collection = this.collectionRepo.save({
         title: collectionData.title,

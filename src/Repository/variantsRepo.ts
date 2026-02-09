@@ -6,15 +6,13 @@ import { getSafeSelectFields } from "../utils/selectFields";
 import { HTTP_STATUS } from "../utils/constant";
 
 export class variantRepository{
-    //properties 
+    
     private variantRepo : Repository<Variant>;
 
-    //Constructor 
     constructor(){
         this.variantRepo = AppDataSource.getRepository(Variant);
     }
 
-    //Methods 
     async createVariants(variantData : Variant) : Promise<Variant>{
          const variant = this.variantRepo.save({
         sku: variantData.sku,
@@ -42,7 +40,7 @@ export class variantRepository{
                 where :{
                     id
                 },
-                select:safeFields
+                select:safeFields,
             })
             return variant;
         } 
@@ -58,6 +56,13 @@ export class variantRepository{
     
         async updateVariant(inputId : bigint,updateData : Partial<Variant> ) : Promise<void>{
             const result = await this.variantRepo.update({id : inputId},updateData);
+            if(result.affected === 0){
+                throw new AppError("Variant Not Found",HTTP_STATUS.NOT_FOUND);
+            }
+        }
+
+        async decrementStock(inputId : bigint) : Promise<void>{
+            const result = await this.variantRepo.decrement({id:inputId},"stock",1);
             if(result.affected === 0){
                 throw new AppError("Variant Not Found",HTTP_STATUS.NOT_FOUND);
             }

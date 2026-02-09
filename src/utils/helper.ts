@@ -1,4 +1,5 @@
-import { Gender } from "./enums";
+import { Order } from "../entity/orderEntity";
+import { Gender, OrderStatus } from "./enums";
 const phoneRegex = /^\+[1-9]\d{9,13}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -20,4 +21,8 @@ export function isDOB(dob : Date):boolean{
 
 export function isInterests(interest : string[]):boolean{
     return  interest.length!=0;
+}
+
+export function isValidStatus(status : OrderStatus) : boolean{
+    return Object.values(OrderStatus).includes(status as OrderStatus);
 }
