@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { VariantController } from "../controllers/variantController";
+import { VariantController } from "../controllers/VariantController";
 
 const router = new Router({prefix:"/variant"});
 

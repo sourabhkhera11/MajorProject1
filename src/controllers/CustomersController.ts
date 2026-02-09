@@ -2,7 +2,7 @@ import { customersRepository } from "../Repository/customersRepo";
 import { isPhone, isEmail,isGender,isDOB, isInterests } from "../utils/helper";
 import { HTTP_STATUS } from "../utils/constant";
 import { AppError } from "../utils/AppError";
-import { BaseController } from "./baseController";
+import { BaseController } from "./BaseController";
 import { Context } from "koa";
 import { accessSync } from "node:fs";
 

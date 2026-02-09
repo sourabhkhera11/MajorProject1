@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { CustomerController } from "../controllers/customersController";
+import { CustomerController } from "../controllers/CustomersController";
 
 const router = new Router({prefix:"/customer"});
 

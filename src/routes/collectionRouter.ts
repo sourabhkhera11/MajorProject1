@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { CollectionController } from "../controllers/collectionController";
+import { CollectionController } from "../controllers/CollectionController";
 
 const router = new Router({prefix:"/collection"});
 

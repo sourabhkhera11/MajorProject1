@@ -1,5 +1,5 @@
 import { productRepository } from "../Repository/productsRepo";
-import { BaseController } from "./baseController";
+import { BaseController } from "./BaseController";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
 import { HTTP_STATUS } from "../utils/constant";

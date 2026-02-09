@@ -1,4 +1,4 @@
-import { BaseController } from "./baseController";
+import { BaseController } from "./BaseController";
 import { variantRepository } from "../Repository/variantsRepo";
 import { Context } from "koa";
 import { AppError } from "../utils/AppError";
