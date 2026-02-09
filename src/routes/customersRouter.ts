@@ -7,6 +7,8 @@ router.post("/register", CustomerController.createCustomer);
 
 router.get('/allCustomer', CustomerController.fetchCustomers);
 
+router.get("/:id/spend", CustomerController.totalSpendByCustomer);
+
 router.get("/:id/orders", CustomerController.allOrdersWithProductName);
 
 router.get('/:id',CustomerController.fetchCustomer)

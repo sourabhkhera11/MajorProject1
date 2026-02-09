@@ -4,6 +4,7 @@ import { HTTP_STATUS } from "../utils/constant";
 import { AppError } from "../utils/AppError";
 import { BaseController } from "./baseController";
 import { Context } from "koa";
+import { accessSync } from "node:fs";
 
 const custRepo = new customersRepository();
 
@@ -106,10 +107,27 @@ export class CustomerController extends BaseController{
 
     static async allOrdersWithProductName(ctx:Context){
         return CustomerController.execute(ctx,async ()=>{
-            const result = await custRepo.allOrdersOfCustomer(ctx.params.id);
+            const customer = await custRepo.allOrdersOfCustomer(ctx.params.id);
+            if(!customer){
+                throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
+            }
             return{
                 message:"Data fetch successfully!",
-                results : result
+                results : customer
+            }
+        },HTTP_STATUS.OK)
+    }
+
+    static async totalSpendByCustomer(ctx:Context){
+        return CustomerController.execute(ctx,async ()=>{
+            const customer = await custRepo.allOrdersOfCustomer(ctx.params.id);
+            if(!customer){
+                throw new AppError("Customer not found",HTTP_STATUS.NOT_FOUND);
+            }
+            const spend = customer.orders.reduce((sum, order) => sum + Number(order.totalAmount),0 );
+            return{
+                message :"Total spent calculated successfully!",
+                totalSpent : spend
             }
         },HTTP_STATUS.OK)
     }
