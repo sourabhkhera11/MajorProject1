@@ -20,14 +20,23 @@ export class CustomerController extends BaseController {
       ctx,
       async () => {
         const customerData = (ctx.request as any).body;
+
         if (!customerData || Object.keys(customerData).length < 1) {
           throw new AppError("Invalid input data", HTTP_STATUS.BAD_REQUEST);
         }
+
         const { name, phone, email } = customerData;
-        console.log(name, typeof name);
 
         if (!name) {
           throw new AppError("Name is required!", HTTP_STATUS.BAD_REQUEST);
+        }
+
+        if (!phone) {
+          throw new AppError("Phone is required!", HTTP_STATUS.BAD_REQUEST);
+        }
+
+        if (!email) {
+          throw new AppError("Email is required!", HTTP_STATUS.BAD_REQUEST);
         }
 
         if (!isPhone(phone)) {
@@ -37,13 +46,14 @@ export class CustomerController extends BaseController {
           );
         }
 
+        if (!isEmail(email)) {
+          throw new AppError("Invalid email!", HTTP_STATUS.BAD_REQUEST);
+        }
+
         if (await custRepo.isDuplicate(email)) {
           throw new AppError("Duplicate entry!", HTTP_STATUS.CONFLICT);
         }
 
-        if (!isEmail(email)) {
-          throw new AppError("Invalid email!", HTTP_STATUS.BAD_REQUEST);
-        }
         const value = await custRepo.insertCustomer(customerData);
         return {
           message: "Customer created successfully",
@@ -121,6 +131,11 @@ export class CustomerController extends BaseController {
           email: email,
           phone: phone,
         };
+
+        if(!name && !email && !phone){
+          throw new AppError("Invalid input data",HTTP_STATUS.BAD_REQUEST);
+        }
+
         await custRepo.updateCustomerById(ctx.params.id, safeFields);
         return {
           message: "Customer updated successfully",
