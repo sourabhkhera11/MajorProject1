@@ -9,7 +9,7 @@ router.get("/allProducts", ProductController.fetchProducts);
 
 router.get("/variants", ProductController.fetchProductWithVariants);
 
-router.get("/variants/:id", ProductController.fetchProductWithVariants);
+router.get("/:id/variants", ProductController.fetchProductWithVariants);
 
 router.get("/:id/sales", ProductController.totalSales);
 

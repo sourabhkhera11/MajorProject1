@@ -62,6 +62,7 @@ export class ProductController extends BaseController {
         const fields = ctx.query.fields
           ? (ctx.query.fields as string).split(",")
           : ([] as string[]);
+        console.log(fields);
         const products = await productRepo.fetchProducts(
           take,
           skip,
